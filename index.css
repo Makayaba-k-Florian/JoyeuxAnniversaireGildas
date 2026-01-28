@@ -1,8 +1,8 @@
 /* 1. Déclarer la police */
 @font-face {
     font-family: 'NomDeMaPolice'; /* Nom à utiliser dans le CSS */
-    src: url('the_jacatra/THE_JACATRA.otf') format('otf'),
-         url('the_jacatra/THE_JACATRA.otf') format('truetype'); /* Chemins et formats */
+    src: url('THE_JACATRA.otf') format('otf'),
+         url('THE_JACATRA.otf') format('truetype'); /* Chemins et formats */
     font-weight: normal;
     font-style: normal;
 }
