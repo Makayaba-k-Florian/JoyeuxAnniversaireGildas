@@ -1,0 +1,100 @@
+/* 1. Déclarer la police */
+@font-face {
+    font-family: 'NomDeMaPolice'; /* Nom à utiliser dans le CSS */
+    src: url('the_jacatra/THE_JACATRA.otf') format('otf'),
+         url('the_jacatra/THE_JACATRA.otf') format('truetype'); /* Chemins et formats */
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 2. Utiliser la police */
+body {
+    font-family: 'NomDeMaPolice', sans-serif;
+}
+
+body {
+    font-family: 'NomDeMaPolice', sans-serif,Arial, Helvetica, sans-serif,;
+    background-color: #f08080; /* Une couleur douce, par exemple */
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    /*background-image: url("images/bacgroude.png");
+    background-repeat: no-repeat;
+    background-size: cover;*/
+    
+    color: white;
+}
+#name{
+    color: rgb(1, 42, 147);
+}
+.conteneur {
+    padding: 20px;
+   
+}
+
+h1 {
+    font-size: 1em;
+}
+
+p {
+    font-size: 1em;
+}
+
+/* Styles pour le conteneur et le texte (inchangés ou ajustés) */
+.conteneur {
+    position: relative;
+    z-index: 1; 
+    text-align: center;
+    padding-top: 50px; 
+    color: white; 
+}
+
+h1 {
+    font-size: 3em;
+    text-shadow: 2px 2px 4px #000000;
+    /* --- Ajout de l'animation ici --- */
+    animation: pulsation 2s infinite alternate; /* Applique l'animation 'pulsation' */
+}
+
+/* L'animation elle-même */
+@keyframes pulsation {
+    0% {
+        /* État initial : taille normale */
+        transform: scale(1.5); 
+    }
+    100% {
+        /* État final : 10% plus grand */
+        transform: scale(1.1); 
+    }
+}
+
+
+/* ... (Le reste de votre CSS pour les images défilantes suit ici) ... */
+.scroll-container {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-top: 20px;
+}
+.scroll-content {
+    display: inline-flex;
+    gap: 20px;
+    animation: defilement 10s linear infinite;
+}
+.scroll-content img {
+    width: 200px; 
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+@keyframes defilement {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+

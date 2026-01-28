@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyeux Anniversaire !</title>
+    <link rel="stylesheet" href="index.css"> <!-- Lie au fichier CSS -->
+    <style>
+        /* Styles CSS pour que le canvas prenne tout l'écran en arrière-plan */
+        canvas {
+            position: fixed; /* Fixe le canvas par rapport à la fenêtre de visualisation */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Place le canvas derrière le contenu (le titre H1) */
+        }
+    </style>
+</head>
+<body>
+    <!-- Le Canvas est maintenant en dehors du conteneur pour couvrir tout l'écran -->
+    <canvas id="canvasParticules"></canvas>
+
+    <div class="conteneur">
+        <h1>happy birthday <p id="name">Gildas</p></h1>
+
+    <!-- Nouveau conteneur pour le défilement -->
+    <div class="scroll-container">
+        <div id="images" class="scroll-content">
+            <img src="images/1bacgroude.png" alt="1">
+            <img src="images/2bacgroude.png" alt="2">
+            <img src="images/3bacgroude.png" alt="3">
+            <img src="images/Flork Balloon Happy Birthday Meme Sticker.jpg" alt="4">
+            <img src="images/Funny Birthday Card- 18th Birthday Sticker.jpg" alt="5">
+            <!-- On duplique les images pour créer un effet de boucle infinie -->
+            <img src="images/1bacgroude.png" alt="1">
+            <img src="images/2bacgroude.png" alt="2">
+            <img src="images/3bacgroude.png" alt="3">
+            <img src="images/Flork Balloon Happy Birthday Meme Sticker.jpg" alt="4">
+            <img src="images/Funny Birthday Card- 18th Birthday Sticker.jpg" alt="5">
+        </div>
+        </div>
+    </div>
+
+    <!-- Script JavaScript pour les particules -->
+    <script>
+        const canvas = document.getElementById('canvasParticules');
+        const ctx = canvas.getContext('2d');
+        const particulesArray = [];
+        let mouse = {
+            x: undefined,
+            y: undefined,
+            isMoving: false
+        };
+
+        // Assure que le canvas prend la taille de la fenêtre au chargement et au redimensionnement
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas(); // Appel initial
+
+        // Gère le mouvement de la souris (suit le pointeur)
+        window.addEventListener('mousemove', function(event) {
+            mouse.x = event.clientX;
+            mouse.y = event.clientY;
+            mouse.isMoving = true;
+        });
+        window.addEventListener('mouseleave', function() {
+            mouse.isMoving = false;
+        });
+
+        // Classe de Particules simplifiée pour un effet festif
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 5 + 3; // Un peu plus grandes
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+                this.color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+            }
+            update() {
+                this.size -= 0.05; // Disparaissent plus lentement
+                this.x += this.speedX;
+                this.y += this.speedY;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function handleParticles() {
+            for (let i = 0; i < particulesArray.length; i++) {
+                particulesArray[i].update();
+                particulesArray[i].draw();
+
+                if (particulesArray[i].size <= 0.3) {
+                    particulesArray.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+
+        // Boucle d'Animation
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Génère des particules tant que la souris bouge
+            if (mouse.isMoving) {
+                for (let i = 0; i < 3; i++) { // Moins de particules à la fois pour un effet plus doux
+                    particulesArray.push(new Particle(mouse.x, mouse.y));
+                }
+            }
+
+            handleParticles();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
